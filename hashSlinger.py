@@ -30,7 +30,7 @@ def level_one():
     print('Picking a password...')
     password = pick_randomLine()
     print('Password picked!')
-    print(f'Target Hash: {hash('md5', password)}')
+    print(f'Target Hash: {hash("md5", password)}')
     guess(password)
 
 def level_two():
@@ -44,7 +44,7 @@ def level_two():
     print('Picking a password...')
     password = pick_randomLine()
     print('Password picked!')
-    print(f'Target Hash: {hash('sha256', password)}')
+    print(f'Target Hash: {hash("sha256", password)}')
     guess(password)
 
 def level_three():
@@ -58,7 +58,7 @@ def level_three():
     print('Picking a password...')
     password = pick_randomLine()
     print('Password picked!')
-    print(f'Target Hash: {hash('sha512', password)}')
+    print(f'Target Hash: {hash("sha512", password)}')
     guess(password)
 
 def level_four():
