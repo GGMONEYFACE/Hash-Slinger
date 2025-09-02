@@ -21,9 +21,7 @@ def pick_randomLine():
         return random.choice(lines).strip()
 
 def level_one():
-    title = "LEVEL ONE"
-    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
-    print(BARRIER)
+    intro("LEVEL ONE")
     print('General: You will be given an MD5 Hash of a password randomly picked from the RockYou wordlist.')
     print('Instructions: Enter the plaintext password associated with this MD5 Hash.')
     print('Hint: hashcat -a 0 -m 0 <hash.txt> /usr/share/wordlists/rockyou.txt')
@@ -34,10 +32,7 @@ def level_one():
     guess(password)
 
 def level_two():
-    print(BARRIER)
-    title = "LEVEL TWO"
-    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
-    print(BARRIER)
+    intro("LEVEL TWO")
     print('General: Good job on solving the MD5 Hash. This one is SHA256.')
     print('Instructions: Enter the plaintext password associated with this SHA256 Hash.')
     print('Hint: It will not be -m 0. It will be -m 1400')
@@ -48,10 +43,7 @@ def level_two():
     guess(password)
 
 def level_three():
-    print(BARRIER)
-    title = "LEVEL THREE"
-    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
-    print(BARRIER)
+    intro("LEVEL THREE")
     print('General: Nice! Now im going to give you a hash without telling you the algorithm')
     print('Instructions: Enter the plaintext password associated with this unkown Hash.')
     print('Hint: Use hashes.com hash identifier or run hashcat on the file with no arguments')
@@ -62,10 +54,7 @@ def level_three():
     guess(password)
 
 def level_four():
-    print(BARRIER)
-    title = "LEVEL FOUR"
-    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
-    print(BARRIER)
+    intro("LEVEL FOUR")
     print('General: Now that you have figured out how to identify hashes. Im going to give you a random one.')
     print('Instructions: Enter the plaintext password associated with this random Hash.')
     print('Picking a password...')
@@ -89,11 +78,15 @@ def guess(password):
         print(f'{REDTEXT}Nope, try again :){RETURNDEFAULTCOLOR}')
         guess = input("Guess: ")
     print(f'{GREENTEXT}Correct!{RETURNDEFAULTCOLOR}')
+
+def intro(title):
+    print(BARRIER)
+    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
+    print(BARRIER)
     
 def main():
     print(BARRIER)
     print(f'##{BLUETEXT} Preparing the Hash Slinger Training {RETURNDEFAULTCOLOR}##')
-    print('#########################################')
     level_one()
     level_two()
     level_three()
