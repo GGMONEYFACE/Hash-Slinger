@@ -46,6 +46,21 @@ def level_two():
     print(f'Target Hash: {hash('sha256', password)}')
     guess(password)
 
+def level_three():
+    print(BARRIER)
+    title = "LEVEL THREE"
+    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
+    print(BARRIER)
+    print('General: Nice! Now im going to give you a hash without telling you the algorithm')
+    print('Instructions: Enter the plaintext password associated with this unkown Hash.')
+    print('Hint: Use hashes.com hash identifier or run hashcat on the file with no arguments')
+    print('Picking a password...')
+    password = pick_randomLine()
+    print('Password picked!')
+    print(f'Target Hash: {hash('sha512', password)}')
+    guess(password)
+
+
 def hash(algo: str, s: str) -> str:
     try:
         return hashlib.new(algo, s.encode('utf-8')).hexdigest()
