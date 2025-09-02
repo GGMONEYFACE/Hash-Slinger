@@ -30,11 +30,7 @@ def level_one():
     password = pick_randomLine()
     print('Password picked!')
     print(f'Target Hash: {hash('md5', password)}')
-    guess = input("Guess: ")
-    while guess != password:
-        print(f'{REDTEXT}Nope, try again :) {RETURNDEFAULTCOLOR}')
-        guess = input("Guess: ")
-    print(f'{GREENTEXT}Correct!{RETURNDEFAULTCOLOR}')
+    guess(password)
 
 def level_two():
     print(BARRIER)
@@ -48,11 +44,7 @@ def level_two():
     password = pick_randomLine()
     print('Password picked!')
     print(f'Target Hash: {hash('sha256', password)}')
-    guess = input("Guess: ")
-    while guess != password:
-        print(f'{REDTEXT}Nope, try again :){RETURNDEFAULTCOLOR}')
-        guess = input("Guess: ")
-    print(f'{GREENTEXT}Correct!{RETURNDEFAULTCOLOR}')
+    guess(password)
 
 def hash(algo: str, s: str) -> str:
     try:
@@ -60,6 +52,13 @@ def hash(algo: str, s: str) -> str:
     except ValueError:
         print(f"{YELLOWTEXT}[!] Unsupported algorithm: {algo}")
         sys.exit(1)
+
+def guess(password):
+    guess = input("Guess: ")
+    while guess != password:
+        print(f'{REDTEXT}Nope, try again :){RETURNDEFAULTCOLOR}')
+        guess = input("Guess: ")
+    print(f'{GREENTEXT}Correct!{RETURNDEFAULTCOLOR}')
     
 def main():
     print(BARRIER)
