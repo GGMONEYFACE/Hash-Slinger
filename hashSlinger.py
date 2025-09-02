@@ -12,6 +12,7 @@ GREENTEXT = "\033[32m" #Success
 YELLOWTEXT = "\033[33m" #Errors :(
 BLUETEXT = "\033[34m" #I just like this color
 RETURNDEFAULTCOLOR = "\033[0m" #Default term color
+RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'md5', 'sha384']
 BARRIER = "#########################################"
 
 def pick_randomLine():
@@ -60,6 +61,20 @@ def level_three():
     print(f'Target Hash: {hash('sha512', password)}')
     guess(password)
 
+def level_four():
+    print(BARRIER)
+    title = "LEVEL FOUR"
+    print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
+    print(BARRIER)
+    print('General: Now that you have figured out how to identify hashes. Im going to give you a random one.')
+    print('Instructions: Enter the plaintext password associated with this random Hash.')
+    print('Picking a password...')
+    password = pick_randomLine()
+    print('Password picked!')
+    hashType = random.choice(RANDOMHASHES)
+    print(f'Target Hash: {hash(hashType, password)}')
+    guess(password)
+
 
 def hash(algo: str, s: str) -> str:
     try:
@@ -81,6 +96,8 @@ def main():
     print('#########################################')
     level_one()
     level_two()
+    level_three()
+    level_four()
 
 
 if __name__ == '__main__':
