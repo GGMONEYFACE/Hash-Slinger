@@ -12,7 +12,7 @@ GREENTEXT = "\033[32m" #Success
 YELLOWTEXT = "\033[33m" #Errors :(
 BLUETEXT = "\033[34m" #I just like this color
 RETURNDEFAULTCOLOR = "\033[0m" #Default term color
-RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'md5', 'sha384']
+RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'sha384']
 BARRIER = "#########################################"
 
 def pick_randomLine():
