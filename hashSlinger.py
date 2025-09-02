@@ -16,7 +16,7 @@ RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'md5', 'sha384']
 BARRIER = "#########################################"
 
 def pick_randomLine():
-    with open('~/Downloads/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
+    with open('/home/kali/Downloads/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
         lines = passwordList.readlines()
         return random.choice(lines).strip()
 
