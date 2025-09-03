@@ -1,0 +1,162 @@
+Skip to content
+You said:
+I want to edit the source of rockyou from localhost to a github repository. How would I edit this line of code:
+
+def pick_randomLine():
+    with open('/home/kali/Downloads/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
+        lines = passwordList.readlines()
+        return random.choice(lines).strip()
+
+to use this url:
+
+https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
+ChatGPT said:
+To use a file from a GitHub URL instead of your local filesystem, you’ll need to download the content from the URL at runtime, instead of using open() for a local file.
+
+Here’s how you can update your function using the requests library:
+
+✅ Updated Code:
+import random
+import requests
+
+def pick_randomLine():
+    url = 'https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt'
+    response = requests.get(url, stream=True)
+    
+    if response.status_code == 200:
+        lines = response.text.splitlines()
+        return random.choice(lines).strip()
+    else:
+        raise Exception(f"Failed to download file. Status code: {response.status_code}")
+⚠️ Requirements:
+Make sure the requests module is installed. If it's not, install it using:
+
+pip install requests
+⚡ Why stream=True?
+It's generally used to download large files efficiently, but since you're reading all lines into memory with .splitlines(), it’s optional here. You can remove stream=True if memory is not a concern.
+
+🧠 Note:
+This downloads the entire wordlist each time the function runs, which may be slow and inefficient for large files like rockyou.txt.
+
+🚀 Better Alternative (One-Time Download):
+Instead of downloading every time, you could download the file once, save it locally, and then read from the local file like your original function:
+
+import os
+import random
+import requests
+
+ROCKYOU_PATH = 'rockyou.txt'
+ROCKYOU_URL = 'https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt'
+
+def download_rockyou():
+    if not os.path.exists(ROCKYOU_PATH):
+        print("Downloading rockyou.txt...")
+        response = requests.get(ROCKYOU_URL)
+        with open(ROCKYOU_PATH, 'wb') as f:
+            f.write(response.content)
+        print("Download complete.")
+
+def pick_randomLine():
+    download_rockyou()
+    with open(ROCKYOU_PATH, 'r', encoding='utf-8', errors='ignore') as passwordList:
+        lines = passwordList.readlines()
+        return random.choice(lines).strip()
+Let me know which version works best for your needs, or if you want to optimize for performance or memory usage!
+
+You said:
+how do I create a new folder in a github repo
+ChatGPT said:
+Creating a new folder in a GitHub repository can be done directly through the GitHub web interface or via Git on your local machine. Here’s how to do both:
+
+✅ Method 1: Using GitHub Website (Web UI)
+📌 Steps:
+Go to your repository on GitHub.
+
+Click the "Add file" button near the top-right.
+
+Choose "Create new file".
+
+In the filename field, type your folder name followed by a /, then a filename (e.g.):
+
+my_new_folder/README.md
+GitHub doesn’t allow completely empty folders, so you must include at least one file.
+
+Add some content to the file (even just a comment).
+
+Scroll down, add a commit message, and click "Commit new file".
+
+🎉 Now your folder my_new_folder/ exists in the repo!
+
+✅ Method 2: Using Git (Locally on Your Machine)
+📌 Steps:
+Clone your repo (if you haven't already):
+
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+Create a new folder:
+
+mkdir my_new_folder
+Add a file to the folder (Git doesn’t track empty folders):
+
+echo "# Placeholder" > my_new_folder/README.md
+Stage and commit the change:
+
+git add my_new_folder
+git commit -m "Add new folder: my_new_folder"
+git push origin main  # or your branch name
+Let me know if you want to automate this or do it through the GitHub API instead.
+
+You said:
+How do I include the requests import in the GitHub?
+ChatGPT said:
+To include the requests import in a project you're pushing to GitHub, you simply need to:
+
+✅ Step 1: Add import requests to your Python script
+If your script uses the requests library, just make sure your .py file includes:
+
+import requests
+Then commit and push the file to your GitHub repo as usual.
+
+✅ Step 2: Add requests to requirements.txt (recommended)
+If you want others (or a deployment environment) to know which Python packages your project depends on, you should also create or update a requirements.txt file.
+
+How to do that:
+In your project folder (locally), run:
+
+pip freeze > requirements.txt
+Or manually create a file named requirements.txt with just:
+
+requests
+Add and push it to GitHub:
+
+git add requirements.txt
+git commit -m "Add requests to requirements.txt"
+git push origin main  # or your branch
+✅ Step 3: Let users install dependencies
+Then, anyone who clones your repo can install all dependencies with:
+
+pip install -r requirements.txt
+💡 Summary
+Task	Purpose
+import requests	Use the library in your code
+requirements.txt	List dependencies for easy setup
+pip install -r ...	Install all dependencies automatically
+Let me know if you're using a virtual environment or need help setting one up.
+
+
+Get smarter responses, upload files and images, and more.
+
+Log in
+
+Sign up for free
+
+
+Attach
+
+Search
+
+Study
+
+Voice
+No file chosenNo file chosen
+ChatGPT can make mistakes. Check important info.
