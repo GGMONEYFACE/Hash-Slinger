@@ -5,7 +5,7 @@
 ####################################################
 
 #Imports and globals
-import argparse, hashlib, random, sys, requests
+import argparse, hashlib, random, sys
 
 REDTEXT = "\033[31m" #Wrong
 GREENTEXT = "\033[32m" #Success
@@ -16,14 +16,9 @@ RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'sha384']
 BARRIER = "#########################################"
 
 def pick_randomLine():
-    url = 'https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt'
-    response = requests.get(url, stream=True)
-    
-    if response.status_code == 200:
-        lines = response.text.splitlines()
+    with open('./wordlists/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
+        lines = passwordList.readlines()
         return random.choice(lines).strip()
-    else:
-        raise Exception(f"Failed to download file. Status code: {response.status_code}")
 
 
 def level_one():
