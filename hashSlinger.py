@@ -12,11 +12,11 @@ GREENTEXT = "\033[32m" #Success
 YELLOWTEXT = "\033[33m" #Errors :(
 BLUETEXT = "\033[34m" #I just like this color
 RETURNDEFAULTCOLOR = "\033[0m" #Default term color
-RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'md5', 'sha384']
+RANDOMHASHES = ['sha512', 'sha256', 'sha224', 'sha384']
 BARRIER = "#########################################"
 
 def pick_randomLine():
-    with open('/home/kali/Downloads/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
+    with open('/usr/share/wordlists/rockyou.txt', 'r', encoding='utf-8', errors='ignore') as passwordList:
         lines = passwordList.readlines()
         return random.choice(lines).strip()
 
@@ -64,6 +64,10 @@ def level_four():
     print(f'Target Hash: {hash(hashType, password)}')
     guess(password)
 
+def level_five():
+    intro("LEVEL FIVE")
+    print("General: Now we're moving onto something new! Mask attacks.")
+    print("More General: NVM")
 
 def hash(algo: str, s: str) -> str:
     try:
@@ -83,14 +87,23 @@ def intro(title):
     print(BARRIER)
     print(f'##{BLUETEXT}{title.center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
     print(BARRIER)
-    
+
+def win():
+    print("Congratulation! This concludes the levels currently available!")
+    print("Play again for even more training.")
+
 def main():
     print(BARRIER)
-    print(f'##{BLUETEXT} Preparing the Hash Slinger Training {RETURNDEFAULTCOLOR}##')
+    print(f'##{BLUETEXT}Preparing the Hash Slinger Training{RETURNDEFAULTCOLOR}##')
+    print(f'##{BLUETEXT}{"Dictionary Attacks".center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
     level_one()
     level_two()
     level_three()
     level_four()
+    print(f'##{BLUETEXT}{"Dictionary Attacks".center(len(BARRIER)-4)}{RETURNDEFAULTCOLOR}##')
+    #level_five()
+    win()
+
 
 
 if __name__ == '__main__':
